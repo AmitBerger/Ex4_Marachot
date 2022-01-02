@@ -1,7 +1,3 @@
-//
-// Created by PC on 12/29/2021.
-//
-
 #ifndef EX4_ALGO_H
 #define EX4_ALGO_H
 
@@ -24,8 +20,8 @@ pNode createNode(int id, pNode next, pEdge edge);
 pNode getLast();
 void freeEdgesOfNode(pNode p);
 int shortestPath(int src, int dest);
-void TSP(int num);
+int TSP(int num);
 void swap(int *x, int *y);
 void permutation(int a[], int size, int n);
 
-#endif //EX4_ALGO_H
+#endif 
