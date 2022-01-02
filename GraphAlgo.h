@@ -1,7 +1,30 @@
 #ifndef EX4_GRAPHALGO_H
 #define EX4_GRAPHALGO_H
 
-#include "graph.h"
+
+#ifndef GRAPH
+#define GRAPH
+
+typedef struct Node *pNode;
+
+typedef struct edge {
+    int weight;
+    pNode dest;
+    struct edge* next;
+} edge, *pEdge;
+
+
+typedef struct Node {
+    int nodeId;
+    int weight;
+    pEdge edges;
+    struct Node* next;
+    struct Node* parent;
+    int visited;
+} node;
+
+
+#endif
 
 void createNodes(int);
 void printGraph_cmd();
