@@ -2,7 +2,7 @@ CC = gcc
 AR = ar
 FLAGS = -Wall -g
 
-make all: libgraph.so graph
+make all: libgraph.so run
 
 libgraph.so: GraphAlgo.o PQ.o
 	$(CC) -shared -o libgraph.so GraphAlgo.o PQ.o
@@ -16,9 +16,9 @@ PQ.o: PQ.h GraphAlgo.h PQ.c
 GraphAlgo.o: GraphAlgo.h PQ.h GraphAlgo.c
 	$(CC) $(FLAGS) -c GraphAlgo.c
 
-graph: main.o libgraph.so
-	$(CC) $(FLAGS) -o graph main.o ./libgraph.so
+run: main.o libgraph.so
+	$(CC) $(FLAGS) -o run main.o ./libgraph.so
 
 .PHONY: clean all
 clean: 
-	rm -f *.o *.so libgraph.so graph 
+	rm -f *.o *.so libgraph.so run 
