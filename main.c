@@ -1,42 +1,43 @@
 #include <stdio.h>
 #include <string.h>
-#include "algo.h"
+#include "GraphAlgo.h"
 #include "graph.h"
 
-int main()
-{
-    char ch;
-    int num;
-    int num2;
+int main(){
+
+    char givenChar;
+    int givenNum;
+    int givenNum2;
     int ans = 0;
-    while (1)
-    {
-        scanf("%c", &ch);
-        if (ch == 'A') {
-            scanf("%d", &num);
-            createNodes(num);
+    while (1){
+
+        scanf("%c", &givenChar);
+        if (givenChar == 'A') {
+            scanf("%d", &givenNum);
+            createNodes(givenNum);
         }
-        if(ch == 'n') {
+        if(givenChar == 'n') {
             createGraph();
         }
-        if(ch == 'B') {
+        if(givenChar == 'B') {
             addNode();
         }
-        if(ch == 'D') {
-            scanf("%d", &num);
-            deleteNode(num);
+        if(givenChar == 'D') {
+            scanf("%d", &givenNum);
+            deleteNode(givenNum);
         }
-        if(ch == 'S') {
-            scanf("%d", &num);
-            scanf("%d", &num2);
-            ans = shortestPath(num, num2);
+        if(givenChar == 'S') {
+            scanf("%d", &givenNum);
+            scanf("%d", &givenNum2);
+            ans = shortestPath(givenNum, givenNum2);
             printf("Dijsktra shortest path: %d \n", ans);
         }
-        if(ch == 'T') {
-            scanf("%d", &num);
-            TSP(num);
+        if(givenChar == 'T') {
+            scanf("%d", &givenNum);
+           int ansT = TSP(givenNum);
+           printf("TSP shortest path: %d \n", ansT);
         }
-        if(ch == '\n') {
+        if(givenChar == '\n') {
             deleteGraph_cmd();
             break;
         }
