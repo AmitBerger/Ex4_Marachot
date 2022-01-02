@@ -1,12 +1,8 @@
-//
-// Created by PC on 12/29/2021.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
 #include "priorityQueue.h"
-#define INF 1000000
+#define INF 21474836
 
 
 static pNode graphNodes;
@@ -15,25 +11,6 @@ static int minPath = INF;
 pNode GetNode(int data);
 void deleteGraph_cmd();
 
-void printGraph_cmd()
-{
-    pNode head = graphNodes;
-    printf("{");
-    while (head)
-    {
-        printf("[id: %d, ", head->nodeId);
-        pEdge ep = head->edges;
-        printf("edges: ");
-        while (ep)
-        {
-            printf("w: %d, dest: %d, ", ep->weight, ep->dest->nodeId);
-            ep = ep->next;
-        }
-        printf("], ");
-        head = head->next;
-    }
-    printf("}\n");
-}
 
 pNode createNode(int id, pNode next, pEdge edge){
     pNode tmp = (pNode)malloc(sizeof(node));
@@ -45,8 +22,8 @@ pNode createNode(int id, pNode next, pEdge edge){
     return tmp;
 }
 
-void createNodes(int size)
-{
+void createNodes(int size){
+
     if(graphNodes != NULL){
         deleteGraph_cmd();
     }
@@ -60,30 +37,22 @@ void createNodes(int size)
 }
 
 
-/**
- * add edges to node:
- *  1. first edge connected to node->edges
- *  2. all other edges is linked list from first edge
- * @param node
- */
-void addEdges(pNode node)
-{
-    int num1;
-    int num2;
+void addEdges(pNode node){
+
+    int givenNum;
+    int givenNum2;
     char ch;
     scanf("%c", &ch);
     if(ch == '\n'){
         return;
     }
     pEdge e = (pEdge)malloc(sizeof(edge));
-    if (scanf("%d", &num1) == 1)
-    {
+    if (scanf("%d", &givenNum) == 1){
 
-        if (scanf("%d", &num2) == 1)
-        {
-            e->weight = num2;
+        if (scanf("%d", &givenNum2) == 1){
+            e->weight = givenNum2;
             node->edges = e;
-            e->dest = GetNode(num1);
+            e->dest = GetNode(givenNum);
             e->next = NULL;
         }
     }else{
@@ -94,15 +63,14 @@ void addEdges(pNode node)
     if(ch == '\n'){
         return;
     }
-    while (scanf("%d", &num1) == 1)
-    {
-        if (scanf("%d", &num2) == 1)
-        {
+    while (scanf("%d", &givenNum) == 1){
+
+        if (scanf("%d", &givenNum2) == 1){
             pEdge tmp = (pEdge)malloc(sizeof(edge));
             tmp->next = NULL;
             e->next = tmp;
-            tmp->weight = num2;
-            tmp->dest = GetNode(num1);
+            tmp->weight = givenNum2;
+            tmp->dest = GetNode(givenNum);
             e = tmp;
         }
         scanf("%c", &ch);
@@ -113,8 +81,7 @@ void addEdges(pNode node)
 
 }
 
-void createGraph()
-{
+void createGraph(){
     int srcId;
     scanf("%d", &srcId);
     pNode node = GetNode(srcId);
@@ -122,14 +89,11 @@ void createGraph()
 }
 
 
-int contains(int nodeId)
-{
+int contains(int nodeId){
     pNode tmp = graphNodes;
-    while (tmp)
-    {
-        if (tmp->nodeId == nodeId)
-        {
-            return 1; //True
+    while (tmp){
+        if (tmp->nodeId == nodeId){
+            return 1; 
         }
         tmp = tmp->next;
     }
@@ -165,8 +129,8 @@ void addNode()
 {
     int srcId;
     scanf("%d", &srcId);
-    if (contains(srcId) == 0) //NOT contains -> new nodeId
-    {
+    if (contains(srcId) == 0) {
+
         pNode last = getLast();
         pNode tmp = createNode(srcId, NULL, NULL);
         last->next = tmp;
@@ -179,11 +143,9 @@ void addNode()
     }
 }
 
-pNode GetNode(int data)
-{
+pNode GetNode(int data){
     pNode p = graphNodes;
-    while (p->nodeId != data)
-    {
+    while (p->nodeId != data){
         p = p->next;
     }
     return p;
@@ -192,20 +154,20 @@ pNode GetNode(int data)
 
 
 void deleteNode(int num) {
-    pNode del = GetNode(num);
+    pNode nodeToDel = GetNode(num);
     pNode p = graphNodes;
     while (p) {
         pEdge e = p->edges;
         while (e) {
 
-            if (e->dest == del) {
+            if (e->dest == nodeToDel) {
                 p->edges = e->next;
                 pEdge pe = e;
                 free(pe);
                 e = NULL;
             } else {
                 pEdge tmp = e->next;
-                if (tmp != NULL && tmp->dest == del) {
+                if (tmp != NULL && tmp->dest == nodeToDel) {
                     e->next = tmp->next;
                     free(tmp);
                 } else {
@@ -216,23 +178,21 @@ void deleteNode(int num) {
         p = p->next;
     }
     pNode h = graphNodes;
-    if (h != del) {
-        while (h->next != del) {
+    if (h != nodeToDel) {
+        while (h->next != nodeToDel) {
             h = h->next;
         }
-        h->next = del->next;
+        h->next = nodeToDel->next;
     }
-    freeEdgesOfNode(del);
-    free(del);
+    freeEdgesOfNode(nodeToDel);
+    free(nodeToDel);
 
 }
 
-void deleteGraph_cmd()
-{
+void deleteGraph_cmd(){
     pNode tmp = graphNodes;
     int nodeId;
-    while (tmp)
-    {
+    while (tmp){
         nodeId = tmp->nodeId;
         deleteNode(nodeId);
         tmp = tmp->next;
@@ -240,7 +200,7 @@ void deleteGraph_cmd()
     graphNodes = NULL;
 }
 
-void restartGraph(){
+void setGraph(){
     pNode tmp = graphNodes;
     while (tmp){
         tmp->weight = INF;
@@ -249,20 +209,18 @@ void restartGraph(){
         tmp = tmp->next;
     }
 }
-void relax(pNode src, pNode dest, pEdge e)
-{
+void relax(pNode src, pNode dest, pEdge e){
     int wEdge = e->weight;
     int wSrc = src->weight;
     int wDest = dest->weight;
-    if (wDest > wSrc + wEdge)
-    {
+    if (wDest > wSrc + wEdge){
         dest->weight = wSrc + wEdge;
         dest->parent = src;
     }
 }
 
 void dijkstra(int src, int dest){
-    restartGraph();
+    setGraph();
     pNode srcNode = GetNode(src);
     srcNode->weight = 0;
     pqNode* pq = newNode(srcNode, srcNode->weight);
@@ -294,8 +252,7 @@ int shortestPath(int src, int dest){
     pNode d =GetNode(dest);
     return d->weight;
 }
-void swap(int *x, int *y)
-{
+void swap(int *x, int *y){
     int temp;
     temp = *x;
     *x = *y;
@@ -317,21 +274,16 @@ void permutation(int a[], int size, int n) {
 
     for (int i = 0; i < size; i++) {
         permutation(a, size - 1, n);
-
-        // if size is odd, swap 0th i.e (first) and
-        // (size-1)th i.e (last) element
         if (size % 2 == 1)
             swap(&a[0], &a[size - 1]);
 
-            // If size is even, swap ith and
-            // (size-1)th i.e (last) element
         else
             swap(&a[i], &a[size - 1]);
     }
 
 }
 
-void TSP(int num) {
+int TSP(int num) {
     minPath = INF;
     int cities[num];
     int n;
@@ -343,5 +295,5 @@ void TSP(int num) {
     if(minPath == INF){
         minPath = -1;
     }
-    printf("TSP shortest path: %d \n", minPath);
+    return minPath;
 }
