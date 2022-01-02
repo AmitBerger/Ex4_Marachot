@@ -1,4 +1,4 @@
-#include "graph.h"
+#include "GraphAlgo.h"
 #ifndef EX4_PRIORITYQUEUE_H
 #define EX4_PRIORITYQUEUE_H
 
