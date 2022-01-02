@@ -1,13 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
-#include "priorityQueue.h"
+#include "PQ.h"
 #define INF 21474836
 
 
 static pNode graphNodes;
 static int minPath = INF;
-// static edges* graphEdges;
 pNode GetNode(int data);
 void deleteGraph_cmd();
 
