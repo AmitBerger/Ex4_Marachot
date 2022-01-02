@@ -10,10 +10,10 @@ libgraph.so: GraphAlgo.o PQ.o
 main.o: GraphAlgo.h main.c
 	$(CC) $(FLAGS) -c main.c
 
-PQ.o: PQ.h graph.h PQ.c
+PQ.o: PQ.h GraphAlgo.h PQ.c
 	$(CC) $(FLAGS) -c PQ.c
 
-GraphAlgo.o: GraphAlgo.h graph.h PQ.h PQ.h GraphAlgo.c
+GraphAlgo.o: GraphAlgo.h PQ.h GraphAlgo.c
 	$(CC) $(FLAGS) -c GraphAlgo.c
 
 graph: main.o libgraph.so
