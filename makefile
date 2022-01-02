@@ -13,7 +13,7 @@ main.o: GraphAlgo.h main.c
 PQ.o: PQ.h graph.h PQ.c
 	$(CC) $(FLAGS) -c PQ.c
 
-GraphAlgo.o: GraphAlgo.h graph.h PQ.h PQ.h algo.c
+GraphAlgo.o: GraphAlgo.h graph.h PQ.h PQ.h GraphAlgo.c
 	$(CC) $(FLAGS) -c GraphAlgo.c
 
 graph: main.o libgraph.so
