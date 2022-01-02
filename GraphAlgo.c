@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "graph.h"
+#include "GraphAlgo.h"
 #include "PQ.h"
 #define INF 21474836
 
