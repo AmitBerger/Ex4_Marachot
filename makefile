@@ -2,23 +2,23 @@ CC = gcc
 AR = ar
 FLAGS = -Wall -g
 
-make all: libgraph.so graph
+make all: libgraph.so run
 
-libgraph.so: algo.o priorityQueue.o
-	$(CC) -shared -o libgraph.so algo.o priorityQueue.o
+libgraph.so: GraphAlgo.o PQ.o
+	$(CC) -shared -o libgraph.so GraphAlgo.o PQ.o
 	
-main.o: algo.h main.c
+main.o: GraphAlgo.h main.c
 	$(CC) $(FLAGS) -c main.c
 
-priorityQueue.o: priorityQueue.h graph.h priorityQueue.c
-	$(CC) $(FLAGS) -c priorityQueue.c
+PQ.o: PQ.h graph.h PQ.c
+	$(CC) $(FLAGS) -c PQ.c
 
-algo.o: algo.h graph.h priorityQueue.h priorityQueue.h algo.c
-	$(CC) $(FLAGS) -c algo.c
+GraphAlgo.o: GraphAlgo.h graph.h  PQ.h GraphAlgo.c
+	$(CC) $(FLAGS) -c GraphAlgo.c
 
-graph: main.o libgraph.so
-	$(CC) $(FLAGS) -o graph main.o ./libgraph.so
+run: main.o libgraph.so
+	$(CC) $(FLAGS) -o run main.o ./libgraph.so
 
 .PHONY: clean all
 clean: 
-	rm -f *.o *.so libgraph.so graph
+	rm -f *.o *.so libgraph.so run
