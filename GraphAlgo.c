@@ -244,6 +244,7 @@ void dijkstra(int src, int dest){
         }
 
     }
+    free(head);
 }
 
 int shortestPath(int src, int dest){
