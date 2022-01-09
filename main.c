@@ -36,8 +36,12 @@ int main(){
             scanf("%d", &givenNum);
            int ansT = TSP(givenNum);
            printf("TSP shortest path: %d \n", ansT);
+           free(ansT);
         }
         if(givenChar == '\n') {
+            free(createNode);
+            free(ans);
+            
             deleteGraph_cmd();
             break;
         }
