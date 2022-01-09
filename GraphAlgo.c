@@ -139,9 +139,7 @@ void addNode()
         freeEdgesOfNode(curr);
         curr->edges = NULL;
         addEdges(curr);
-    
     }
-    
 }
 
 pNode GetNode(int data){
@@ -199,7 +197,6 @@ void deleteGraph_cmd(){
         tmp = tmp->next;
     }
     graphNodes = NULL;
-    free(graphNodes);
 }
 
 void setGraph(){
@@ -247,7 +244,6 @@ void dijkstra(int src, int dest){
         }
 
     }
-    free(head);
 }
 
 int shortestPath(int src, int dest){
